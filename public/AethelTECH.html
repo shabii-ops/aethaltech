@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aethel Tech | Enterprise Cyber Threat & Customer Intelligence Defense</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <link rel="stylesheet" href="AethelTech.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav>
+        <div class="brand">
+            <div class="logo-shield">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h2>Aethel Tech <span style="font-size: 0.65rem; background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 999px; margin-left: 6px; font-weight: 700; vertical-align: middle; letter-spacing: 0.5px;">SOC ENTERPRISE</span></h2>
+        </div>
+
+        <div class="nav-links">
+            <a href="#analyzer">SOC Scanner</a>
+            <a href="#features">Capabilities</a>
+            <a href="#how">SOC Workflow</a>
+            <a href="#about">Enterprise Mission</a>
+            <a href="index.html" style="color: #4f46e5; font-weight: 700;">SentinelRisk Console</a>
+        </div>
+
+        <div class="nav-cta">
+            <a href="#analyzer" class="btn-nav">Analyze Vector</a>
+        </div>
+    </nav>
+
+
+    <section class="hero">
+
+        <div class="hero-pill">
+            <span class="pulse-dot"></span>
+            Enterprise Cyber Threat &amp; Operations Defense
+        </div>
+
+        <h1>Inbound Communications &amp; Threat Defense</h1>
+
+        <p class="hero-desc">
+            Company-grade defense protecting corporate operations, employee communication channels, and customer support desks against spear-phishing, malicious links, and financial manipulation.
+        </p>
+
+        <!-- Interactive Analyzer Interface -->
+        <div class="analyzer-box" id="analyzer">
+            <div class="analyzer-header">
+                <h3>Internal Communications &amp; Threat Inspector</h3>
+                <span class="badge-status">SOC Pipeline Online</span>
+            </div>
+
+            <!-- Quick Preset Buttons -->
+            <div class="preset-row">
+                <span class="preset-label">Corporate Presets:</span>
+                <button type="button" class="preset-btn" onclick="loadSample(0)">Executive Phishing</button>
+                <button type="button" class="preset-btn" onclick="loadSample(1)">Vendor Invoice .exe</button>
+                <button type="button" class="preset-btn" onclick="loadSample(2)">Account Takeover / OTP</button>
+                <button type="button" class="preset-btn" onclick="loadSample(3)">Verified Customer Ticket</button>
+            </div>
+
+            <div class="input-group">
+                <textarea 
+                    id="message-input" 
+                    rows="4" 
+                    placeholder="Inspect any corporate communication, incoming customer ticket, vendor email, or suspicious URL link here (e.g., 'URGENT: Corporate SSO verification required at http://paypal-security.support.net...')..."
+                ></textarea>
+            </div>
+
+            <div class="action-row">
+                <button class="btn-primary" id="analyze-btn" onclick="analyze()">
+                    <span>Analyze Now</span>
+                </button>
+                <button class="btn-clear" onclick="clearInput()">Clear</button>
+            </div>
+
+            <!-- Real-time Analysis Result Card -->
+            <div id="result-box" class="result-box" style="display: none;">
+                <!-- Populated dynamically by script.js -->
+            </div>
+        </div>
+
+    </section>
+
+
+    <section id="features">
+
+        <div class="section-badge">SOC Capabilities</div>
+        <h2>Enterprise Threat Defense</h2>
+        <p class="section-sub">Multi-layer defense engineered to safeguard corporate teams, executive accounts, and customer communications.</p>
+
+        <div class="features">
+
+            <div class="card">
+                <div class="card-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </div>
+                <h3>Inbound URL Inspection</h3>
+                <p>Detects hidden typosquatting domains, deceptive IP destinations, obfuscated shorteners, and fake corporate login portals.</p>
+                <span class="card-tag">Heuristic Scanner</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <h3>Social Engineering &amp; Fraud</h3>
+                <p>Identifies psychological coercion, artificial urgency, executive impersonation, and vendor invoice manipulation.</p>
+                <span class="card-tag">NLP Behavioral Model</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <h3>Incident Response &amp; SLA</h3>
+                <p>Generates immediate SOC incident classification, priority scoring, automated containment guidelines, and customer intelligence.</p>
+                <span class="card-tag">SOC Actionable Guidance</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="how">
+
+        <div class="section-badge">SOC Workflow</div>
+        <h2>Operational Workflow</h2>
+        <p class="section-sub">Rapid 3-phase verification pipeline safeguarding enterprise workflows.</p>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <h4>Ingest Inbound Vector</h4>
+                <p>Submit incoming tickets, suspicious customer requests, vendor links, or executive emails for triage.</p>
+            </div>
+
+            <div class="step-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <h4>Instant SOC Inspection</h4>
+                <p>Deep heuristic cross-referencing analyzes brand spoofing, malicious attachments, and psychological coercion.</p>
+            </div>
+
+            <div class="step-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <h4>Automated Incident Protocol</h4>
+                <p>Receive risk scores, containment steps, priority tier, and customer support classification to resolve safely.</p>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section id="about">
+
+        <div class="section-badge">Enterprise Mission</div>
+        <h2>About Aethel Tech SOC</h2>
+
+        <div class="about-card">
+            <p>
+                <strong>Aethel Tech Enterprise SOC</strong> provides comprehensive perimeter defense and communications intelligence for modern organizations, customer operations, and security teams.
+                As targeted spear-phishing and business email compromise (BEC) attacks escalate, traditional filters allow deceptive communications to slip through.
+            </p>
+            <p style="margin-top: 15px;">
+                Our platform delivers sub-millisecond threat verification, customer sentiment awareness, and automated incident response guidance to keep enterprise data and support teams protected.
+            </p>
+
+            <div class="stats-row">
+                <div class="stat-item">
+                    <h3>99.8%</h3>
+                    <p>Corporate Threat Intercept</p>
+                </div>
+                <div class="stat-item">
+                    <h3>&lt; 15ms</h3>
+                    <p>SOC Analysis Latency</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Zero-Trust</h3>
+                    <p>Verification Standard</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-shield">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </span>
+                <h3>Aethel Tech SOC</h3>
+                <p>Enterprise Inbound Threat &amp; Operations Defense</p>
+            </div>
+            <div class="footer-links">
+                <a href="#analyzer">SOC Inspector</a>
+                <a href="#features">Capabilities</a>
+                <a href="#how">Workflow</a>
+                <a href="#about">Mission</a>
+                <a href="index.html">Enterprise SOC Platform</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Aethel Tech Enterprise Systems. Authorized Corporate Security Operations.</p>
+        </div>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

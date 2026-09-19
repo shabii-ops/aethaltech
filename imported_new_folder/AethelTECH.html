@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aethel Tech | Stay Safe From Digital Threats</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <link rel="stylesheet" href="AethelTech.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav>
+        <div class="brand">
+            <div class="logo-shield">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h2>Aethel Tech</h2>
+        </div>
+
+        <div class="nav-links">
+            <a href="#analyzer">Scanner</a>
+            <a href="#features">Features</a>
+            <a href="#how">How It Works</a>
+            <a href="#about">About</a>
+            <a href="index.html" style="color: #4f46e5; font-weight: 700;">SentinelRisk SOC</a>
+        </div>
+
+        <div class="nav-cta">
+            <a href="#analyzer" class="btn-nav">Analyze Now</a>
+        </div>
+    </nav>
+
+
+    <section class="hero">
+
+        <div class="hero-pill">
+            <span class="pulse-dot"></span>
+            AI-Powered Digital Threat Defense
+        </div>
+
+        <h1>Stay Safe From Digital Threats</h1>
+
+        <p class="hero-desc">
+            Next-generation AI protection against suspicious links, fraudulent SMS, and spear-phishing messages.
+        </p>
+
+        <!-- Interactive Analyzer Interface -->
+        <div class="analyzer-box" id="analyzer">
+            <div class="analyzer-header">
+                <h3>Live Link &amp; Message Threat Inspector</h3>
+                <span class="badge-status">Engine Online</span>
+            </div>
+
+            <!-- Quick Preset Buttons -->
+            <div class="preset-row">
+                <span class="preset-label">Try Examples:</span>
+                <button type="button" class="preset-btn" onclick="loadSample(0)">Fake Bank Phishing</button>
+                <button type="button" class="preset-btn" onclick="loadSample(1)">Malicious .exe Invoice</button>
+                <button type="button" class="preset-btn" onclick="loadSample(2)">Urgent OTP Theft</button>
+                <button type="button" class="preset-btn" onclick="loadSample(3)">Legitimate Order Query</button>
+            </div>
+
+            <div class="input-group">
+                <textarea 
+                    id="message-input" 
+                    rows="4" 
+                    placeholder="Paste any suspicious message, text, email, or URL link here (e.g., 'URGENT: Click http://paypal-security.support.net to verify your account within 2 hours')..."
+                ></textarea>
+            </div>
+
+            <div class="action-row">
+                <button class="btn-primary" id="analyze-btn" onclick="analyze()">
+                    <span>Analyze Now</span>
+                </button>
+                <button class="btn-clear" onclick="clearInput()">Clear</button>
+            </div>
+
+            <!-- Real-time Analysis Result Card -->
+            <div id="result-box" class="result-box" style="display: none;">
+                <!-- Populated dynamically by script.js -->
+            </div>
+        </div>
+
+    </section>
+
+
+    <section id="features">
+
+        <div class="section-badge">Capabilities</div>
+        <h2>Why Aethel Tech?</h2>
+        <p class="section-sub">Comprehensive multi-layer threat detection built to protect users before clicking.</p>
+
+        <div class="features">
+
+            <div class="card">
+                <div class="card-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </div>
+                <h3>URL Detection</h3>
+                <p>Detects hidden typosquatting domains, deceptive IP addresses, obfuscated shorteners, and fake login links.</p>
+                <span class="card-tag">Heuristic Scanner</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <h3>Message Analysis</h3>
+                <p>Identifies psychological social engineering tactics such as artificial urgency, intimidation, and financial baiting.</p>
+                <span class="card-tag">NLP Behavioral Model</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <h3>Risk Explanation</h3>
+                <p>Provides clear, human-readable explanations of why a message is dangerous and exact instructions on how to handle it safely.</p>
+                <span class="card-tag">Actionable Guidance</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="how">
+
+        <div class="section-badge">Simple Process</div>
+        <h2>How It Works</h2>
+        <p class="section-sub">Three fast steps to verify any digital link or communication.</p>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <h4>Enter Suspicious Content</h4>
+                <p>Copy and paste any suspicious email, SMS, DM, or link into the Aethel Tech scanner.</p>
+            </div>
+
+            <div class="step-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <h4>Instant Neural Inspection</h4>
+                <p>Advanced heuristics cross-reference domain reputation, brand mimicry, and manipulative phrasing.</p>
+            </div>
+
+            <div class="step-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <h4>Actionable Threat Advisory</h4>
+                <p>Receive clear risk classification and guidance to safeguard your private data.</p>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section id="about">
+
+        <div class="section-badge">Our Mission</div>
+        <h2>About Aethel Tech</h2>
+
+        <div class="about-card">
+            <p>
+                <strong>Aethel Tech</strong> is dedicated to empowering everyday users, customer care teams, and organizations against modern cyber threats.
+                As phishing and social engineering attacks grow increasingly sophisticated, traditional spam filters fail to detect deceptive human manipulation.
+            </p>
+            <p style="margin-top: 15px;">
+                Our mission is to provide instantaneous, transparent, and accurate digital threat verification to ensure no malicious link or fraudulent communication goes unnoticed.
+            </p>
+
+            <div class="stats-row">
+                <div class="stat-item">
+                    <h3>99.4%</h3>
+                    <p>Phishing Detection</p>
+                </div>
+                <div class="stat-item">
+                    <h3>&lt; 20ms</h3>
+                    <p>Analysis Speed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Zero-Click</h3>
+                    <p>Safe Inspection</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-shield">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </span>
+                <h3>Aethel Tech</h3>
+                <p>AI-Powered Digital Threat Defense</p>
+            </div>
+            <div class="footer-links">
+                <a href="#analyzer">Threat Scanner</a>
+                <a href="#features">Features</a>
+                <a href="#how">How It Works</a>
+                <a href="#about">About</a>
+                <a href="index.html">Enterprise SOC Platform</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Aethel Tech. All rights reserved. Safeguarding your digital interactions.</p>
+        </div>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

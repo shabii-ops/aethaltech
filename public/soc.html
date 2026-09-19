@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AethelTech SOC // Customer Intelligence &amp; Threat Risk Platform</title>
+  <meta name="description" content="Production hackathon prototype for unified customer intelligence, complaint classification, sentiment analysis, deterministic security rules, phishing detection, and transparent risk scoring.">
+  
+  <!-- Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons: Lucide & Chart.js -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="header-left">
+        <div class="brand-badge">
+          <i data-lucide="shield-alert" class="brand-icon"></i>
+          <div>
+            <div class="brand-title">Aethel<span>Tech</span> SOC</div>
+            <div class="brand-subtitle">Enterprise Customer Intelligence &amp; Threat Defense Platform</div>
+          </div>
+        </div>
+        <div class="live-pill">
+          <span class="pulsing-dot"></span>
+          <span>PIPELINE ACTIVE</span>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <div class="target-domain-chip">
+          <i data-lucide="globe" class="chip-icon"></i>
+          <span>Protected Corporate Domain: <strong id="headerTargetDomain">aetheltech.io</strong></span>
+        </div>
+        <div class="engine-mode-chip" id="headerEngineMode">
+          <i data-lucide="cpu" class="chip-icon"></i>
+          <span>Deterministic + AI Fallback</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button class="btn btn-secondary btn-sm" id="btnQuickSeed" title="Seed 100+ realistic demo conversations">
+          <i data-lucide="database"></i> Seed 100+ Dataset
+        </button>
+        <button class="btn btn-outline btn-sm" id="btnExportData" title="Export database">
+          <i data-lucide="download"></i> Export
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-bar">
+      <button class="nav-item active" data-view="analyzer">
+        <i data-lucide="crosshair"></i> Live Threat & Customer Analyzer
+      </button>
+      <button class="nav-item" data-view="dashboard">
+        <i data-lucide="layout-dashboard"></i> Executive SOC Dashboard
+      </button>
+      <button class="nav-item" data-view="explorer">
+        <i data-lucide="table-2"></i> Incident & Ticket Explorer
+        <span class="nav-counter" id="navIncidentCount">0</span>
+      </button>
+      <button class="nav-item" data-view="batch">
+        <i data-lucide="file-up"></i> Bulk Ingestion (CSV / JSON)
+      </button>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="main-content">
+
+      <!-- ================================================================= -->
+      <!-- VIEW 1: LIVE ANALYZER -->
+      <!-- ================================================================= -->
+      <section class="view-panel active" id="view-analyzer">
+        <!-- One-Click Demo Scenarios Carousel/Bar -->
+        <div class="scenarios-container card-surface">
+          <div class="section-title-row">
+            <div class="section-heading">
+              <i data-lucide="zap" class="text-accent"></i>
+              <span>One-Click Demo Scenarios (Pre-configured Pipeline Presets)</span>
+            </div>
+            <span class="badge badge-info">10 Official Scenarios</span>
+          </div>
+          <div class="scenarios-carousel" id="scenariosCarousel">
+            <!-- Dynamically populated scenarios -->
+          </div>
+        </div>
+
+        <div class="analyzer-grid">
+          <!-- Left: Input Form Panel -->
+          <div class="card-surface analyzer-input-card">
+            <div class="input-tabs-header">
+              <button class="input-tab active" data-type="text">
+                <i data-lucide="message-square"></i> Customer Chat / Message
+              </button>
+              <button class="input-tab" data-type="url">
+                <i data-lucide="link"></i> URL Inspection
+              </button>
+              <button class="input-tab" data-type="email">
+                <i data-lucide="mail"></i> Email Verification
+              </button>
+            </div>
+
+            <form id="analyzerForm" class="analyzer-form">
+              <div class="form-group">
+                <label for="analysisInput" id="inputLabel">Enter Customer Message or Transcript</label>
+                <textarea 
+                  id="analysisInput" 
+                  rows="6" 
+                  placeholder="Paste customer complaint, message, or suspicious text here...&#10;Try: 'URGENT! Your account has been compromised. Click this link immediately and enter your username, password and OTP.'"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group flex-1">
+                  <label for="companyDomainInput">Target Corporate Domain</label>
+                  <input type="text" id="companyDomainInput" value="novapay.io" placeholder="e.g. novapay.io">
+                </div>
+                <div class="form-group flex-1">
+                  <label for="sourceInput">Source Channel</label>
+                  <select id="sourceInput">
+                    <option value="Customer Chat">Customer Chat</option>
+                    <option value="Inbound Email">Inbound Email</option>
+                    <option value="Web Form">Web Form</option>
+                    <option value="SOC Threat Ingestion">SOC Threat Ingestion</option>
+                    <option value="Social Media DM">Social Media DM</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="btnSubmitAnalysis">
+                  <i data-lucide="play-circle"></i> Execute Full Pipeline
+                </button>
+                <button type="button" class="btn btn-secondary" id="btnClearInput">
+                  <i data-lucide="rotate-ccw"></i> Clear
+                </button>
+              </div>
+            </form>
+
+            <!-- Live Pipeline Status Stepper -->
+            <div class="pipeline-stepper" id="pipelineStepper">
+              <div class="step-item" id="step-validation"><span class="step-dot"></span>Validation</div>
+              <div class="step-connector"></div>
+              <div class="step-item" id="step-preprocessing"><span class="step-dot"></span>Preprocessing</div>
+              <div class="step-connector"></div>
+              <div class="step-item" id="step-customer"><span class="step-dot"></span>Customer AI</div>
+              <div class="step-connector"></div>
+              <div class="step-item" id="step-security"><span class="step-dot"></span>Security Engine</div>
+              <div class="step-connector"></div>
+              <div class="step-item" id="step-risk"><span class="step-dot"></span>Risk Engine</div>
+            </div>
+          </div>
+
+          <!-- Right: Structured Output Panel -->
+          <div class="card-surface analyzer-output-card" id="analyzerOutputCard">
+            <div class="output-placeholder" id="outputPlaceholder">
+              <i data-lucide="shield-search" class="placeholder-icon"></i>
+              <h3>Unified Telemetry Ready</h3>
+              <p>Execute an analysis or select a demo scenario on the left to observe genuine structured output from the dual-intelligence pipeline.</p>
+            </div>
+
+            <div class="output-content hidden" id="outputContent">
+              <!-- Top Risk Banner -->
+              <div class="risk-summary-banner" id="riskSummaryBanner">
+                <div class="risk-badge-box">
+                  <span class="risk-label">UNIFIED RISK TIER</span>
+                  <div class="risk-level-badge" id="riskLevelBadge">CRITICAL</div>
+                </div>
+                <div class="risk-metric-box">
+                  <div class="risk-score-value" id="riskScoreVal">95<span>/100</span></div>
+                  <div class="risk-score-sub">Threat Severity Index</div>
+                </div>
+                <div class="risk-action-box">
+                  <div class="action-header"><i data-lucide="alert-triangle"></i> RECOMMENDED ACTION</div>
+                  <div class="action-text" id="riskActionText">Escalate immediately to security team.</div>
+                </div>
+              </div>
+
+              <!-- Two Column Breakdown -->
+              <div class="output-subgrid">
+                <!-- Customer Intelligence Card -->
+                <div class="intel-card customer-intel-card">
+                  <div class="intel-card-header">
+                    <i data-lucide="user-check" class="text-cyan"></i>
+                    <span>Customer Intelligence</span>
+                  </div>
+                  <div class="intel-metrics">
+                    <div class="metric-chip">
+                      <span class="chip-k">Category</span>
+                      <span class="chip-v badge badge-cyan" id="custCategory">Account Security</span>
+                    </div>
+                    <div class="metric-chip">
+                      <span class="chip-k">Priority</span>
+                      <span class="chip-v badge" id="custPriority">URGENT</span>
+                    </div>
+                    <div class="metric-chip">
+                      <span class="chip-k">Sentiment</span>
+                      <span class="chip-v badge" id="custSentiment">Frustrated (-0.85)</span>
+                    </div>
+                  </div>
+
+                  <div class="intel-block">
+                    <span class="block-label">Extractive Summary:</span>
+                    <p class="summary-text" id="custSummary"></p>
+                  </div>
+
+                  <div class="intel-block">
+                    <span class="block-label">Extracted Key Issues:</span>
+                    <div class="tags-row" id="custKeyIssues"></div>
+                  </div>
+
+                  <div class="intel-block">
+                    <span class="block-label">Salient Keywords:</span>
+                    <div class="tags-row" id="custKeywords"></div>
+                  </div>
+                </div>
+
+                <!-- Security Intelligence Card -->
+                <div class="intel-card security-intel-card">
+                  <div class="intel-card-header">
+                    <i data-lucide="shield-alert" class="text-crimson"></i>
+                    <span>Security Intelligence (Deterministic)</span>
+                  </div>
+                  <div class="intel-metrics">
+                    <div class="metric-chip">
+                      <span class="chip-k">Threat Type</span>
+                      <span class="chip-v badge" id="secThreatType">Credential Harvesting</span>
+                    </div>
+                    <div class="metric-chip">
+                      <span class="chip-k">Indicators Found</span>
+                      <span class="chip-v badge badge-outline" id="secIndicatorsCount">3</span>
+                    </div>
+                    <div class="metric-chip">
+                      <span class="chip-k">Threat Score</span>
+                      <span class="chip-v badge" id="secThreatScore">85/100</span>
+                    </div>
+                  </div>
+
+                  <div class="intel-block">
+                    <span class="block-label">Deterministic Indicators & Evidence:</span>
+                    <div class="indicators-list" id="secIndicatorsList">
+                      <!-- List of items -->
+                    </div>
+                  </div>
+
+                  <div class="intel-block" id="extractedUrlsBox">
+                    <span class="block-label">Deconstructed URLs & Entities:</span>
+                    <div class="entities-list" id="secEntitiesList"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Risk Reasoning Breakdown -->
+              <div class="reasoning-block">
+                <span class="block-label"><i data-lucide="list-checks"></i> Transparent Risk Decision Reasons:</span>
+                <ul class="reasoning-list" id="riskReasonsList"></ul>
+              </div>
+
+              <!-- Collapsible Raw JSON -->
+              <div class="raw-json-drawer">
+                <button class="btn-toggle-json" id="btnToggleJson">
+                  <i data-lucide="code"></i> View Raw Structured JSON Telemetry
+                </button>
+                <pre class="json-code hidden" id="rawJsonCode"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- VIEW 2: EXECUTIVE SOC DASHBOARD -->
+      <!-- ================================================================= -->
+      <section class="view-panel" id="view-dashboard">
+        <!-- KPI Metrics Grid -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon-box cyan-glow">
+              <i data-lucide="messages-square"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-title">Total Ingested</span>
+              <div class="kpi-value" id="kpiTotalIncidents">0</div>
+              <span class="kpi-sub">Calculated from stored records</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon-box crimson-glow">
+              <i data-lucide="shield-x"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-title">Security Threats</span>
+              <div class="kpi-value" id="kpiThreatsCount">0</div>
+              <span class="kpi-sub" id="kpiThreatRate">0% threat density</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon-box amber-glow">
+              <i data-lucide="flame"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-title">Critical & High Risk</span>
+              <div class="kpi-value" id="kpiCriticalCount">0</div>
+              <span class="kpi-sub" id="kpiCriticalSub">Immediate action required</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon-box purple-glow">
+              <i data-lucide="frown"></i>
+            </div>
+            <div class="kpi-content">
+              <span class="kpi-title">Frustrated Sentiment</span>
+              <div class="kpi-value" id="kpiFrustratedCount">0</div>
+              <span class="kpi-sub">Escalated customer churn risk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+          <div class="chart-card card-surface">
+            <div class="chart-header">
+              <div class="chart-title"><i data-lucide="pie-chart"></i> Risk Tier Distribution</div>
+              <span class="badge badge-info">Calculated Live</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="chartRisk"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card card-surface">
+            <div class="chart-header">
+              <div class="chart-title"><i data-lucide="bar-chart-3"></i> Complaint Classification</div>
+              <span class="badge badge-info">NLP Classified</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="chartCategory"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card card-surface">
+            <div class="chart-header">
+              <div class="chart-title"><i data-lucide="smile-plus"></i> Customer Sentiment Polarity</div>
+              <span class="badge badge-info">VADER / Lexicon</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="chartSentiment"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Threats Table -->
+        <div class="card-surface recent-incidents-card">
+          <div class="section-title-row">
+            <div class="section-heading">
+              <i data-lucide="activity" class="text-crimson"></i>
+              <span>High Severity Threat Telemetry (Latest Events)</span>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="btnViewAllExplorer">
+              Open Full Explorer <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Timestamp</th>
+                  <th>Threat Type</th>
+                  <th>Category</th>
+                  <th>Risk Tier</th>
+                  <th>Key Indicators</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="recentThreatsTbody">
+                <!-- Loaded dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- VIEW 3: INCIDENT & TICKET EXPLORER -->
+      <!-- ================================================================= -->
+      <section class="view-panel" id="view-explorer">
+        <div class="card-surface explorer-controls">
+          <div class="explorer-filter-row">
+            <!-- Search -->
+            <div class="search-input-box">
+              <i data-lucide="search" class="search-icon"></i>
+              <input type="text" id="explorerSearchInput" placeholder="Search by keywords, text, threat type, category...">
+            </div>
+
+            <!-- Filters -->
+            <select id="filterCategory" class="filter-select">
+              <option value="all">All Categories</option>
+              <option value="Account Security">Account Security</option>
+              <option value="Payment Failure">Payment Failure</option>
+              <option value="Refund Request">Refund Request</option>
+              <option value="Delivery Issue">Delivery Issue</option>
+              <option value="Account Access">Account Access</option>
+              <option value="Technical Support">Technical Support</option>
+              <option value="General Inquiry">General Inquiry</option>
+            </select>
+
+            <select id="filterRisk" class="filter-select">
+              <option value="all">All Risk Tiers</option>
+              <option value="CRITICAL">CRITICAL</option>
+              <option value="HIGH">HIGH</option>
+              <option value="MEDIUM">MEDIUM</option>
+              <option value="LOW">LOW</option>
+            </select>
+
+            <select id="filterSentiment" class="filter-select">
+              <option value="all">All Sentiments</option>
+              <option value="Frustrated">Frustrated</option>
+              <option value="Negative">Negative</option>
+              <option value="Neutral">Neutral</option>
+              <option value="Positive">Positive</option>
+            </select>
+
+            <select id="filterStatus" class="filter-select">
+              <option value="all">All Statuses</option>
+              <option value="Open">Open</option>
+              <option value="In Investigation">In Investigation</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Escalated">Escalated</option>
+            </select>
+
+            <label class="toggle-threat-only">
+              <input type="checkbox" id="filterThreatOnly">
+              <span>Threats Only</span>
+            </label>
+
+            <button class="btn btn-secondary btn-sm" id="btnResetFilters">
+              <i data-lucide="rotate-ccw"></i> Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Explorer Table -->
+        <div class="card-surface explorer-table-card">
+          <div class="table-meta-bar">
+            <span id="explorerResultsCount">Showing 0 records</span>
+            <div class="pagination-controls">
+              <button class="btn btn-outline btn-sm" id="btnPrevPage" disabled><i data-lucide="chevron-left"></i></button>
+              <span id="paginationIndicator">Page 1 of 1</span>
+              <button class="btn btn-outline btn-sm" id="btnNextPage" disabled><i data-lucide="chevron-right"></i></button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Sentiment</th>
+                  <th>Risk Tier</th>
+                  <th>Threat</th>
+                  <th>Summary / Snippet</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="explorerTbody">
+                <!-- Dynamic records -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- VIEW 4: BULK INGESTION (CSV / JSON) -->
+      <!-- ================================================================= -->
+      <section class="view-panel" id="view-batch">
+        <div class="batch-grid">
+          <!-- CSV Upload Card -->
+          <div class="card-surface batch-card">
+            <div class="section-heading">
+              <i data-lucide="file-spreadsheet" class="text-cyan"></i>
+              <span>CSV Bulk Dataset Ingestion</span>
+            </div>
+            <p class="batch-description">
+              Upload a customer service log or threat feed in CSV format. Must include a header column named <code>text</code>, <code>message</code>, <code>complaint</code>, or <code>conversation</code>.
+            </p>
+
+            <div class="drop-zone" id="csvDropZone">
+              <i data-lucide="upload-cloud" class="drop-icon"></i>
+              <h4>Drag & Drop CSV File Here</h4>
+              <p>or click to browse from your computer (Max 10MB)</p>
+              <input type="file" id="csvFileInput" accept=".csv" class="hidden-file-input">
+            </div>
+
+            <div class="upload-status" id="csvUploadStatus"></div>
+            <button class="btn btn-primary" id="btnProcessCsv" disabled>
+              <i data-lucide="check-circle-2"></i> Process CSV Ingestion
+            </button>
+          </div>
+
+          <!-- JSON Upload Card -->
+          <div class="card-surface batch-card">
+            <div class="section-heading">
+              <i data-lucide="file-json" class="text-purple"></i>
+              <span>JSON Array / Feed Ingestion</span>
+            </div>
+            <p class="batch-description">
+              Upload a JSON file containing an array of objects or text strings (e.g. <code>[{"text": "my complaint"}]</code>).
+            </p>
+
+            <div class="drop-zone" id="jsonDropZone">
+              <i data-lucide="file-code-2" class="drop-icon"></i>
+              <h4>Drag & Drop JSON File Here</h4>
+              <p>or click to browse from your computer (Max 10MB)</p>
+              <input type="file" id="jsonFileInput" accept=".json" class="hidden-file-input">
+            </div>
+
+            <div class="upload-status" id="jsonUploadStatus"></div>
+            <button class="btn btn-primary" id="btnProcessJson" disabled>
+              <i data-lucide="check-circle-2"></i> Process JSON Ingestion
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Details Modal / Drawer -->
+    <div class="modal-overlay hidden" id="incidentModalOverlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div>
+            <div class="modal-title" id="modalIncidentId">Incident Details</div>
+            <div class="modal-subtitle" id="modalIncidentDate"></div>
+          </div>
+          <button class="modal-close-btn" id="btnModalClose">&times;</button>
+        </div>
+        <div class="modal-body" id="modalIncidentBody">
+          <!-- Dynamic details content -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast-container" id="toastContainer"></div>
+  </div>
+
+  <!-- Client Script -->
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

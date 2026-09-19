@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aethel Tech | Phishing &amp; Threat Detection System</title>
+  <meta name="description" content="Heuristic URL and message threat analyzer built for real-time phishing and deception detection.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Ambient Background -->
+  <div class="cyber-bg">
+    <div class="cyber-grid"></div>
+    <div class="cyber-glow-orb orb-1"></div>
+    <div class="cyber-glow-orb orb-2"></div>
+    <div class="cyber-glow-orb orb-3"></div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="brand" id="nav-brand-link">
+        <div class="brand-icon-wrapper">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="brand-title">Aethel<span>Tech</span></div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#scanner" class="nav-link">Phishing Scanner</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Theme Switcher -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle light or dark theme" title="Switch Light / Dark Theme">
+          <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- Simple backend connection status -->
+        <div class="status-pill" id="backend-status-pill" style="cursor:pointer;" title="Click to test backend connection">
+          <span class="status-dot" id="backend-status-dot"></span>
+          <span id="backend-status-text">Backend: Connected</span>
+        </div>
+
+        <a href="#scanner" id="nav-launch-btn" class="btn btn-primary btn-sm">
+          <span>Open Scanner</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-wrapper">
+
+    <!-- 1. HOME / HERO SECTION -->
+    <section class="hero-section" id="home">
+      <div class="hero-pill">
+        <span>HEURISTIC PHISHING &amp; THREAT ANALYSIS</span>
+      </div>
+
+      <h1 class="hero-title">
+        Real-Time Phishing &amp; <br>
+        <span class="text-gradient">Threat Detection</span>
+      </h1>
+
+      <p class="hero-desc">
+        Inspect suspicious URLs, fake bank alerts, and urgent messages. Aethel Tech detects typosquatting domains, deceptive IP routing, and coercive social engineering keywords.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#scanner" id="hero-cta-btn" class="btn btn-primary btn-lg">
+          <span>Open Scanner</span>
+        </a>
+        <a href="#about" class="btn btn-secondary btn-lg">
+          <span>About Project</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 1.5. SECURITY DASHBOARD & STATISTICS (DEMO METRICS - DYNAMICALLY CONFIGURABLE) -->
+    <section class="stats-dashboard-section" id="stats-dashboard" aria-label="Security Metrics and Performance">
+      <div class="stats-dashboard-grid">
+        
+        <!-- Card 1: 98% Detection Accuracy -->
+        <div class="stat-card" data-stat="accuracy">
+          <div class="stat-card-top">
+            <div class="stat-icon-wrapper" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+            </div>
+            <span class="stat-pill-badge">Benchmark</span>
+          </div>
+          <div class="stat-number" id="stat-detection-accuracy">98%</div>
+          <div class="stat-label">Detection Accuracy</div>
+        </div>
+
+        <!-- Card 2: <45ms Analysis Response -->
+        <div class="stat-card" data-stat="response">
+          <div class="stat-card-top">
+            <div class="stat-icon-wrapper" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+            <span class="stat-pill-badge">Latency</span>
+          </div>
+          <div class="stat-number" id="stat-analysis-response">&lt;45ms</div>
+          <div class="stat-label">Analysis Response</div>
+        </div>
+
+        <!-- Card 3: 1.4B+ Threats Analyzed -->
+        <div class="stat-card" data-stat="threats">
+          <div class="stat-card-top">
+            <div class="stat-icon-wrapper" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <span class="stat-pill-badge">Telemetry</span>
+          </div>
+          <div class="stat-number" id="stat-threats-analyzed">1.4B+</div>
+          <div class="stat-label">Threats Analyzed</div>
+        </div>
+
+        <!-- Card 4: 99.4% AI Model Precision -->
+        <div class="stat-card" data-stat="precision">
+          <div class="stat-card-top">
+            <div class="stat-icon-wrapper" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="22" y1="12" x2="18" y2="12"/>
+                <line x1="6" y1="12" x2="2" y2="12"/>
+                <line x1="12" y1="6" x2="12" y2="2"/>
+                <line x1="12" y1="22" x2="12" y2="18"/>
+              </svg>
+            </div>
+            <span class="stat-pill-badge">Precision</span>
+          </div>
+          <div class="stat-number" id="stat-model-precision">99.4%</div>
+          <div class="stat-label">AI Model Precision</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. PHISHING SCANNER CONSOLE -->
+    <section id="scanner" style="scroll-margin-top: 5rem;">
+      <div class="console-container" id="sandbox">
+        
+        <!-- Header -->
+        <div class="console-header">
+          <div class="console-title-group">
+            <span class="console-badge">THREAT SCANNER</span>
+            <span class="console-title">Message &amp; URL Inspector</span>
+          </div>
+
+          <!-- Vector Tabs -->
+          <div class="vector-tabs" role="tablist">
+            <button class="vector-tab active" data-vector="url" id="tab-url">
+              <span>URL / Link</span>
+            </button>
+            <button class="vector-tab" data-vector="sms" id="tab-sms">
+              <span>SMS Message</span>
+            </button>
+            <button class="vector-tab" data-vector="email" id="tab-email">
+              <span>Email Content</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Console Body -->
+        <div class="console-body" id="console-body-wrapper">
+          
+          <!-- Live Threat Interceptor Status Bar -->
+          <div class="live-interceptor-bar" id="live-interceptor-container">
+            <div class="interceptor-meta">
+              <div class="interceptor-status">
+                <span class="pulsing-radar-dot"></span>
+                <span class="interceptor-status-title">AUTOMATIC INTERCEPTOR ACTIVE</span>
+                <span class="interceptor-count-badge" id="incoming-count-badge">0 Intercepted</span>
+              </div>
+              <div class="interceptor-subtext">
+                Live monitoring incoming Gmail, device fraud messages (SMS/WhatsApp) &amp; phishing links.
+              </div>
+            </div>
+            <div class="interceptor-actions">
+              <button type="button" id="btn-toggle-feed" class="btn btn-secondary btn-sm" style="font-size:0.78rem; padding:0.35rem 0.75rem;">
+                <span id="btn-toggle-feed-text">▼ Show Threat Stream</span>
+              </button>
+              <button type="button" id="btn-simulate-incoming" class="btn btn-primary btn-sm" style="font-size:0.78rem; padding:0.35rem 0.75rem;" title="Simulate an incoming Gmail / SMS attack in real time">
+                <span>⚡ Simulate Attack</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Intercepted Threats Feed Drawer (Collapsible) -->
+          <div class="incoming-feed-drawer" id="incoming-feed-drawer" style="display: none;">
+            <div class="incoming-feed-header">
+              <span class="incoming-feed-title">Recent Automated Interceptions (Live Device / Gmail Feed)</span>
+              <span class="incoming-feed-refresh" id="feed-last-sync">Syncing with backend :5000</span>
+            </div>
+            <div class="incoming-feed-list" id="incoming-feed-list">
+              <div class="incoming-empty-state">Waiting for incoming messages or links from device / Gmail... Click "⚡ Simulate Attack" for live demo.</div>
+            </div>
+          </div>
+
+          <!-- Sample Payloads -->
+          <div class="preset-row">
+            <span class="preset-label">Examples:</span>
+            <button type="button" class="preset-pill active" data-sample="0">
+              <span>Crypto Drainer</span>
+            </button>
+            <button type="button" class="preset-pill" data-sample="1">
+              <span>Bank Smishing</span>
+            </button>
+            <button type="button" class="preset-pill" data-sample="2">
+              <span>Legitimate 2FA</span>
+            </button>
+            <button type="button" class="preset-pill" data-sample="3">
+              <span>Executable Payload</span>
+            </button>
+          </div>
+
+          <!-- Input Area -->
+          <div class="input-wrapper">
+            <div class="input-meta-bar">
+              <span id="input-mode-indicator">Target Vector: URL / Hyperlink Payload</span>
+              <button id="input-clear-btn" class="btn btn-secondary btn-sm" style="padding:0.2rem 0.6rem;">Clear</button>
+            </div>
+            <textarea 
+              id="payload-input" 
+              class="console-textarea" 
+              rows="4" 
+              placeholder="Paste target URL link or message here (e.g. http://claim-eth-airdrop.wallet-connect.top/auth?token=90812)..."
+            ></textarea>
+          </div>
+
+          <!-- Footer Stats & Submit -->
+          <div class="console-footer-bar">
+            <div class="input-stats">
+              <div>Characters: <span id="char-counter">0</span></div>
+              <div>Words: <span id="word-counter">0</span></div>
+              <div>Entropy: <span id="entropy-indicator">Low (0.0)</span></div>
+            </div>
+
+            <button id="run-diagnostic-btn" class="btn btn-primary btn-lg">
+              <span>Analyze Threat</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- 3. SCANNING PROGRESS STATE -->
+        <div class="scanning-state" id="scanning-state-view">
+          <div class="radar-wrapper">
+            <div class="radar-circle radar-c1"></div>
+            <div class="radar-circle radar-c2"></div>
+            <div class="radar-circle radar-c3"></div>
+            <div class="radar-circle radar-c4"></div>
+            <div class="radar-crosshair-x"></div>
+            <div class="radar-crosshair-y"></div>
+            <div class="radar-sweep"></div>
+            <div class="radar-ping"></div>
+          </div>
+
+          <div class="terminal-feed">
+            <div class="terminal-header">
+              <span>ANALYSIS IN PROGRESS</span>
+              <div class="terminal-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div id="terminal-logs-container"></div>
+          </div>
+        </div>
+
+        <!-- 4. RISK RESULT DASHBOARD -->
+        <div class="result-dashboard" id="results-dashboard-view">
+          <div class="result-card-main">
+            
+            <!-- Hero Row: Score Gauge + Status -->
+            <div class="result-hero-row">
+              <div class="gauge-wrapper">
+                <svg class="gauge-svg" viewBox="0 0 200 200">
+                  <circle class="gauge-track" cx="100" cy="100" r="90"></circle>
+                  <circle id="risk-gauge-circle" class="gauge-bar" cx="100" cy="100" r="90"></circle>
+                </svg>
+                <div class="gauge-center-content">
+                  <div id="gauge-score-val" class="gauge-score-number" style="color:var(--toxic-red);">0</div>
+                  <div class="gauge-score-label">Risk Score</div>
+                </div>
+              </div>
+
+              <div class="threat-status-header">
+                <div id="threat-status-chip" class="threat-chip chip-danger">
+                  <span class="status-dot" style="background:#ff3366; box-shadow:0 0 10px #ff3366;"></span>
+                  <span id="threat-chip-text">HIGH RISK DETECTED</span>
+                </div>
+                <h2 id="threat-headline-text" class="threat-headline">Suspicious Threat Identified</h2>
+                <p id="threat-summary-text" class="threat-summary-text">
+                  Payload demonstrates indicators of brand typosquatting or psychological urgency manipulation.
+                </p>
+              </div>
+            </div>
+
+            <!-- Telemetry Metrics Row -->
+            <div class="threat-telemetry-row">
+              <div class="telemetry-box">
+                <div class="telemetry-box-label">Domain Status</div>
+                <div id="res-domain-age" class="telemetry-box-val">Analyzed</div>
+              </div>
+              <div class="telemetry-box">
+                <div class="telemetry-box-label">Threat Indicators</div>
+                <div id="res-blacklist-hits" class="telemetry-box-val" style="color:var(--toxic-red);">Detected</div>
+              </div>
+              <div class="telemetry-box">
+                <div class="telemetry-box-label">Urgency Level</div>
+                <div id="res-urgency-score" class="telemetry-box-val" style="color:var(--warning-amber);">Moderate</div>
+              </div>
+              <div class="telemetry-box">
+                <div class="telemetry-box-label">Protocol Security</div>
+                <div id="res-ssl-status" class="telemetry-box-val" style="color:var(--toxic-red);">Unencrypted</div>
+              </div>
+            </div>
+
+            <!-- Dedicated AI Threat Analysis Card (Backend result.analysis) -->
+            <div class="ai-analysis-card" id="ai-analysis-box">
+              <div class="ai-analysis-header">
+                <div class="ai-badge">
+                  <span class="ai-pulse-dot"></span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                    <circle cx="12" cy="5" r="2"></circle>
+                    <path d="M12 7v4"></path>
+                    <line x1="8" y1="16" x2="8" y2="16"></line>
+                    <line x1="16" y1="16" x2="16" y2="16"></line>
+                  </svg>
+                  <span>AI Threat Analysis</span>
+                </div>
+                <span class="ai-model-tag" id="ai-model-source">Neural Analysis Engine</span>
+              </div>
+              <p id="ai-analysis-text" class="ai-analysis-body">
+                Payload demonstrates indicators of brand typosquatting or psychological urgency manipulation.
+              </p>
+            </div>
+
+            <!-- Clear Explanation of Why It Is Suspicious -->
+            <div class="warnings-heading">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>Why This Input is Suspicious (Detected Indicators)</span>
+            </div>
+            <div id="warning-cards-container" class="warnings-grid"></div>
+
+            <!-- Prominent Safety Recommendation -->
+            <div class="safety-recommendation-card" id="safety-recommendation-box">
+              <div class="safety-icon-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Recommended Safety Action</span>
+              </div>
+              <p id="safety-recommendation-text" class="safety-desc">
+                Do not click any links, download attachments, or enter credentials. Verify communication through official customer support channels.
+              </p>
+            </div>
+
+            <!-- Action Strip -->
+            <div class="remediation-strip">
+              <div class="remediation-info">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <div>
+                  <div style="font-weight:700; font-size:0.85rem; color:var(--text-main);">Safe In-Memory Execution</div>
+                  <div style="font-size:0.75rem; color:var(--text-dim);">Analyzed safely in client/backend sandbox without executing malicious links.</div>
+                </div>
+              </div>
+
+              <div class="remediation-buttons">
+                <button id="btn-export-json" class="btn btn-secondary btn-sm">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <span>Export JSON Report</span>
+                </button>
+                <button id="btn-reset-diagnostic" class="btn btn-primary btn-sm">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                  <span>Scan Another Message</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. ABOUT SECTION -->
+    <section class="about-section" id="about">
+      <div class="section-header-center">
+        <h2 class="section-title">About Aethel Tech</h2>
+        <p style="color:var(--text-muted); max-width:650px; margin:0 auto;">
+          An open phishing detection system developed for the hackathon, focusing on transparent heuristic scoring and actionable guidance.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <p style="font-size: 0.98rem; line-height: 1.65; color: var(--text-main);">
+          Modern social engineering and phishing attacks rely heavily on emotional coercion and lookalike domains that bypass standard static keyword filters. <strong>Aethel Tech</strong> combines lexical URL analysis, targeted brand lookalike verification, and natural language urgency scoring to detect deceptive patterns in real time.
+        </p>
+
+        <div class="about-grid">
+          <div class="about-feature-item">
+            <h4>Brand Typosquatting Detection</h4>
+            <p>Catches lookalike subdomains and mimicry targeting major payment, banking, and tech services (PayPal, Chase, Apple, Binance, etc.).</p>
+          </div>
+
+          <div class="about-feature-item">
+            <h4>Bare IP Destination Routing</h4>
+            <p>Flags raw IP addresses used in URLs to circumvent transparent domain registration transparency.</p>
+          </div>
+
+          <div class="about-feature-item">
+            <h4>Disguised Executable Binaries</h4>
+            <p>Identifies dangerous double-extension files (like <code>.pdf.exe</code>) disguised as standard corporate invoices or contracts.</p>
+          </div>
+
+          <div class="about-feature-item">
+            <h4>Social Engineering Urgency</h4>
+            <p>Scores psychological pressure tactics such as artificial deadlines, account suspension threats, and immediate legal warnings.</p>
+          </div>
+
+          <div class="about-feature-item">
+            <h4>Credential Harvesting Traps</h4>
+            <p>Detects explicit solicitations for sensitive credentials, OTP tokens, passwords, and cryptocurrency recovery seeds.</p>
+          </div>
+
+          <div class="about-feature-item">
+            <h4>Shannon Token Entropy</h4>
+            <p>Measures character randomness and information entropy to uncover encoded or obfuscated query parameters.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-brand">
+      <strong style="color:var(--text-main); font-size:1.1rem; font-weight:700;">Aethel<span style="color:var(--cyan);">Tech</span></strong>
+      <div style="margin-top:0.35rem;">Phishing Threat Detection System • Hackathon 2026</div>
+    </div>
+    <p>© 2026 Aethel Tech. Developed for transparent cyber threat awareness and safer digital communications.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
